@@ -1,0 +1,27 @@
+{
+  "name": "k8stest",
+  "version": "0.0.1",
+  "description": "test for k8s cluster",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/heinrich10/k8stest.git"
+  },
+  "author": "heinrich10",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heinrich10/k8stest/issues"
+  },
+  "homepage": "https://github.com/heinrich10/k8stest#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
+  }
+}
