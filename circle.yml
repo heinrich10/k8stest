@@ -1,0 +1,12 @@
+machine:
+ services:
+  - docker
+ node:
+  version: 8
+deployment:
+ hub:
+  commands:
+   - docker login -u $DOCKER_USER -p $DOCKER_PASS
+   - docker build -t k8stest .
+   - docker tag k8stest "heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}"
+   - docker push "heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}"

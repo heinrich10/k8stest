@@ -9,9 +9,10 @@ app.get('/', function (req, res) {
 	mongo().then((db) => {
 		return db.collection('test').find().limit(1).next()
 	}).then((data) => {
-		res.json(data.msg);
+		res.json(data.msg + ' 1.0.1');
 	}).catch((e) => {
 		console.log(e.stack);
+		res.send("no message");
 	});
 });
 
