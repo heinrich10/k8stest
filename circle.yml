@@ -1,12 +1,31 @@
-machine:
- services:
-  - docker
- node:
-  version: 8
-deployment:
- hub:
-  commands:
-   - docker login -u $DOCKER_USER -p $DOCKER_PASS
-   - docker build -t k8stest .
-   - docker tag k8stest "heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}"
-   - docker push "heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}"
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+ build:
+  docker:
+   # specify the version you desire here
+   - image: circleci/node:8
+  working_directory: ~/repo
+  steps:
+   - checkout
+   - run: npm install
+   - run: npm test
+   - setup_remote_docker
+   - run:
+    name: Install Docker Client
+    command: |
+     set -x
+     VER="17.03.0-ce"
+     curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+     tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+     mv /tmp/docker/* /usr/bin
+    - run:
+     name: Push Docker Image
+     command: |
+      docker login -u $DOCKER_USER -p $DOCKER_PASS
+      docker build -t k8stest .
+      docker tag k8stest "heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}"
+      docker push "heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}"
