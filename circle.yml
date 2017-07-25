@@ -28,4 +28,4 @@ jobs:
       command: |
        mkdir ~/.kube
        cp ./config/kube ~/.kube/config
-       kubectl get nodes
+       kubectl set image deployment/k8stest-deployment k8stest=heinrich10/k8stest:1.1.${CIRCLE_BUILD_NUM}
